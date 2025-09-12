@@ -1,0 +1,71 @@
+body {
+    background: #f5f6fa;
+    font-family: 'Prompt', Arial, sans-serif;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ddd;
+    padding: 32px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 2px #0d6efd33;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo img {
+    width: 64px;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f9fb;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    padding-bottom: 70px;
+    /* เพิ่ม padding-bottom เพื่อไม่ให้เนื้อหาถูก footer ทับ */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    font-weight: 600;
+    color: #2d3a4b;
+}
+
+#dashboard {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    padding: 2rem;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.footer-fixed-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.05);
+    padding: 10px 0 8px 0;
+    text-align: center;
+    margin: 0;
+}
