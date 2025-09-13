@@ -70,11 +70,15 @@ $filtered_page = array_slice($filtered, $offset, $perPage);
     <meta charset="UTF-8">
     <title>จัดการข้อมูล</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container py-4">
-        <h3 class="mb-4">จัดการข้อมูล</h3>
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>จัดการข้อมูล</h3>
+        </div>
         <!-- ปุ่มกลับ Dashboard ถูกย้ายไป header -->
         <form class="row g-3 mb-3" method="get">
             <div class="col-auto">
