@@ -16,7 +16,7 @@
 <footer class="footer-fixed-bottom">
     <div class="container">
         <div class="text-center">
-            <div>ชื่อโครงการวิจัย การพัฒนารูปแบบการเตรียมความพร้อมเข้าสู่วัยสูงอายุ โดยชุมชน</div>
+            <div>โครงการวิจัย การพัฒนารูปแบบการเตรียมความพร้อมเข้าสู่วัยสูงอายุโดยชุมชน</div>
             <div>Copyright © 2025 Research Unit of Internet of Things and Embedded System [IoTES LAB]. All rights reserved.</div>
         </div>
     </div>

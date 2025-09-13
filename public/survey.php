@@ -146,8 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="style.css" rel="stylesheet">
 </head>
 
-<?php include 'header.php'; ?>
-
 <body>
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">

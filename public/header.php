@@ -9,30 +9,33 @@ $stmt->execute([$user_id]);
 $fullname = $stmt->fetchColumn() ?: 'ผู้ใช้';
 ?>
 <style>
-.header-bar {
-    width: 100%;
-    background: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 12px 0 12px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1100;
-}
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-.greeting {
-    font-weight: 500;
-    color: #2d3a4b;
-}
-.logout-btn {
-    min-width: 90px;
-}
+    .header-bar {
+        width: 100%;
+        background: #f8f9fa;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 12px 0 12px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1100;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .greeting {
+        font-weight: 500;
+        color: #2d3a4b;
+    }
+
+    .logout-btn {
+        min-width: 90px;
+    }
 </style>
 <div class="header-bar">
     <div class="header-content">

@@ -123,7 +123,7 @@ $users = $stmt->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
-<?php include 'header.php'; ?>
+
 <body>
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
