@@ -254,6 +254,7 @@ $users = $stmt->fetchAll();
             $edit_roles_stmt = $pdo->prepare('SELECT role_id FROM user_roles WHERE user_id=?');
             $edit_roles_stmt->execute([$edit_id]);
             $edit_roles = array_column($edit_roles_stmt->fetchAll(), 'role_id');
+            $edit_success = ($success && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit');
         ?>
             <div class="modal fade show" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" style="display:block; background:rgba(0,0,0,0.5);">
                 <div class="modal-dialog">
@@ -336,6 +337,10 @@ $users = $stmt->fetchAll();
                         }
                     }
                 });
+                <?php if (!empty($edit_success)): ?>
+                    // ปิด modal และรีเฟรชหน้า หลังบันทึกสำเร็จ
+                    window.location.href = 'users.php';
+                <?php endif; ?>
             </script>
         <?php endif; ?>
     </div>

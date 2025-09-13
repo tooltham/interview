@@ -7,8 +7,30 @@ if (!is_logged_in()) {
     exit;
 }
 
-$username = $_SESSION['username'] ?? '';
+
+$user_id = $_SESSION['user_id'] ?? null;
 $roles = $_SESSION['roles'] ?? [];
+$fullname = '';
+if ($user_id) {
+    $stmt = $pdo->prepare('SELECT name FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $row = $stmt->fetch();
+    if ($row && !empty($row['name'])) {
+        $fullname = $row['name'];
+    }
+}
+
+// Greeting by time
+$hour = (int)date('G');
+if ($hour >= 5 && $hour < 12) {
+    $greeting = 'สวัสดีตอนเช้า';
+} elseif ($hour >= 12 && $hour < 17) {
+    $greeting = 'สวัสดีตอนบ่าย';
+} elseif ($hour >= 17 && $hour < 21) {
+    $greeting = 'สวัสดีตอนเย็น';
+} else {
+    $greeting = 'สวัสดีตอนกลางคืน';
+}
 
 // ดึงข้อมูลสรุป
 $user_count = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
@@ -29,7 +51,7 @@ $form_count = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
 <body>
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3>สวัสดีคุณ <?= htmlspecialchars($username) ?>!</h3>
+            <h3><?= $greeting ?><?= $fullname ? 'คุณ ' . htmlspecialchars($fullname) : '' ?>!</h3>
             <a href="logout.php" class="btn btn-outline-danger">Logout</a>
         </div>
         <div class="mb-4">
