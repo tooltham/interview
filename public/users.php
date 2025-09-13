@@ -136,6 +136,12 @@ $users = $stmt->fetchAll();
         <?php if ($success): ?>
             <div class="alert alert-success"> <?= htmlspecialchars($success) ?> </div>
         <?php endif; ?>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <h5 class="mb-0">รายชื่อผู้ใช้</h5>
+            </div>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">เพิ่มผู้ใช้ใหม่</button>
+        </div>
         <table class="table table-bordered table-hover">
             <thead class="table-light">
                 <tr>
@@ -161,9 +167,7 @@ $users = $stmt->fetchAll();
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <div class="mt-4">
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">เพิ่มผู้ใช้ใหม่</button>
-        </div>
+
 
         <!-- Modal เพิ่มผู้ใช้ -->
         <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
