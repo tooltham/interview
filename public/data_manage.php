@@ -158,7 +158,7 @@ foreach ($responses as $resp) {
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <a href="index.php" class="btn btn-secondary mt-3">กลับสู่ Dashboard</a>
+
     </div>
     <?php include 'footer.php'; ?>
 </body>

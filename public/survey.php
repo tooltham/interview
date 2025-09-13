@@ -153,9 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h3>จัดการแบบสอบถาม</h3>
         </div>
 
-        <h5 class="mb-3">ประวัติการกรอกแบบสอบถาม</h5>
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <div></div>
+            <div class="fw-bold" style="font-size:1.1rem;">ประวัติการกรอกแบบสอบถาม</div>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSurveyModal">เพิ่มแบบสอบถาม</button>
         </div>
         <?php
@@ -204,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tbody>
         </table>
 
-        <hr class="my-4">
+
 
         <!-- Modal ดู/แก้ไขแบบสอบถาม -->
         <?php if ($view_response): ?>
