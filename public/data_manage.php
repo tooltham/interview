@@ -59,6 +59,7 @@ foreach ($responses as $resp) {
 <html lang="th">
 
 <head>
+    <?php include 'header.php'; ?>
     <meta charset="UTF-8">
     <title>จัดการข้อมูล</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -67,6 +68,7 @@ foreach ($responses as $resp) {
 <body>
     <div class="container py-4">
         <h3 class="mb-4">จัดการข้อมูล</h3>
+        <!-- ปุ่มกลับ Dashboard ถูกย้ายไป header -->
         <form class="row g-3 mb-3" method="get">
             <div class="col-auto">
                 <label class="col-form-label">อายุ:</label>

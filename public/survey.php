@@ -137,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="th">
 
 <head>
+    <?php include 'header.php'; ?>
     <meta charset="UTF-8">
     <title>จัดการแบบสอบถาม</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,7 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3>จัดการแบบสอบถาม</h3>
-            <a href="index.php" class="btn btn-secondary">กลับสู่ Dashboard</a>
         </div>
 
         <h5 class="mb-3">ประวัติการกรอกแบบสอบถาม</h5>

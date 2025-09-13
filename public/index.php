@@ -49,10 +49,10 @@ $form_count = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3><?= $greeting ?><?= $fullname ? 'คุณ ' . htmlspecialchars($fullname) : '' ?>!</h3>
-            <a href="logout.php" class="btn btn-outline-danger">Logout</a>
         </div>
         <div class="mb-4">
             <p>คุณเข้าสู่ระบบในบทบาท: <strong><?= htmlspecialchars(implode(', ', $roles)) ?></strong></p>
@@ -75,19 +75,7 @@ $form_count = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
                 </div>
             </div>
         </div>
-        <div class="mt-5">
-            <?php if (has_role('admin')): ?>
-                <a href="users.php" class="btn btn-primary">จัดการผู้ใช้</a>
-                <a href="survey.php" class="btn btn-warning ms-2">จัดการแบบสอบถาม</a>
-                <a href="data_manage.php" class="btn btn-info ms-2">จัดการข้อมูล</a>
-            <?php endif; ?>
-            <?php if (has_role('user')): ?>
-                <a href="survey.php" class="btn btn-success">จัดการแบบสอบถาม</a>
-            <?php endif; ?>
-            <?php if (has_role('manager')): ?>
-                <a href="data_manage.php" class="btn btn-info">จัดการข้อมูล</a>
-            <?php endif; ?>
-        </div>
+        <!-- เมนูถูกย้ายไป header.php -->
     </div>
     <?php include 'footer.php'; ?>
 </body>
