@@ -20,6 +20,8 @@ if ($user_id) {
     }
 }
 
+
+/*
 // Greeting by time
 $hour = (int)date('G');
 if ($hour >= 5 && $hour < 12) {
@@ -31,6 +33,7 @@ if ($hour >= 5 && $hour < 12) {
 } else {
     $greeting = 'สวัสดีตอนกลางคืน';
 }
+*/
 
 // ดึงข้อมูลสรุป
 $user_count = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
@@ -51,12 +54,12 @@ $form_count = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
 <body>
     <?php include 'header.php'; ?>
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- <div class="d-flex justify-content-between align-items-center mb-4">
             <h3><?= $greeting ?><?= $fullname ? 'คุณ ' . htmlspecialchars($fullname) : '' ?>!</h3>
-        </div>
-        <div class="mb-4">
+        </div> -->
+        <!-- <div class="mb-4">
             <p>คุณเข้าสู่ระบบในบทบาท: <strong><?= htmlspecialchars(implode(', ', $roles)) ?></strong></p>
-        </div>
+        </div> -->
         <div class="row g-4">
             <div class="col-md-6">
                 <div class="card text-center">
