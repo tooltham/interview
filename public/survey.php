@@ -58,13 +58,14 @@ if ($is_admin) {
     $stmt->execute();
     $responses = $stmt->fetchAll();
 } else {
-    $totalStmt = $pdo->prepare('SELECT COUNT(*) FROM responses WHERE user_id = ? AND status = "active"');
-    $totalStmt->execute([$user_id]);
+    $totalStmt = $pdo->prepare('SELECT COUNT(*) FROM responses WHERE user_id = :user_id AND status = "active"');
+    $totalStmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $totalStmt->execute();
     $totalRows = $totalStmt->fetchColumn();
-    $stmt = $pdo->prepare('SELECT * FROM responses WHERE user_id = ? AND status = "active" ORDER BY submitted_at ASC LIMIT :limit OFFSET :offset');
-    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
-    $stmt->bindValue(2, $perPage, PDO::PARAM_INT);
-    $stmt->bindValue(3, $offset, PDO::PARAM_INT);
+    $stmt = $pdo->prepare('SELECT * FROM responses WHERE user_id = :user_id AND status = "active" ORDER BY submitted_at ASC LIMIT :limit OFFSET :offset');
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $responses = $stmt->fetchAll();
 }
