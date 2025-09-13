@@ -54,6 +54,13 @@ foreach ($responses as $resp) {
     if ($filter_income_max !== '' && ($income === null || $income > (float)$filter_income_max)) continue;
     $filtered[] = $resp;
 }
+// --- Pagination setup ---
+$perPage = 10;
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$totalRows = count($filtered);
+$totalPages = ceil($totalRows / $perPage);
+$offset = ($page - 1) * $perPage;
+$filtered_page = array_slice($filtered, $offset, $perPage);
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -138,9 +145,9 @@ foreach ($responses as $resp) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($filtered as $resp): ?>
+                <?php foreach ($filtered_page as $i => $resp): ?>
                     <tr>
-                        <td><?= $resp['id'] ?></td>
+                        <td><?= ($offset + $i + 1) ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q2'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q4'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q5'] ?? '-') ?></td>
@@ -158,6 +165,25 @@ foreach ($responses as $resp) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <!-- Pagination menu -->
+        <?php if ($totalPages > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item<?= $page <= 1 ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>" tabindex="-1">ก่อนหน้า</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item<?= $i == $page ? ' active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item<?= $page >= $totalPages ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">ถัดไป</a>
+                    </li>
+                </ul>
+            </nav>
+        <?php endif; ?>
 
     </div>
     <?php include 'footer.php'; ?>

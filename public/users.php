@@ -110,6 +110,13 @@ $stmt = $pdo->query('SELECT u.id, u.username, u.email, GROUP_CONCAT(r.name) as r
     GROUP BY u.id, u.username, u.email
     ORDER BY u.id ASC');
 $users = $stmt->fetchAll();
+// --- Pagination setup ---
+$perPage = 10;
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$totalRows = count($users);
+$totalPages = ceil($totalRows / $perPage);
+$offset = ($page - 1) * $perPage;
+$users_page = array_slice($users, $offset, $perPage);
 
 ?>
 <!DOCTYPE html>
@@ -153,9 +160,9 @@ $users = $stmt->fetchAll();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $user): ?>
+                <?php foreach ($users_page as $i => $user): ?>
                     <tr>
-                        <td><?= htmlspecialchars($user['id']) ?></td>
+                        <td><?= ($offset + $i + 1) ?></td>
                         <td><?= htmlspecialchars($user['username']) ?></td>
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td><?= htmlspecialchars($user['roles']) ?></td>
@@ -167,6 +174,25 @@ $users = $stmt->fetchAll();
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <!-- Pagination menu -->
+        <?php if ($totalPages > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item<?= $page <= 1 ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>" tabindex="-1">ก่อนหน้า</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item<?= $i == $page ? ' active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item<?= $page >= $totalPages ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">ถัดไป</a>
+                    </li>
+                </ul>
+            </nav>
+        <?php endif; ?>
 
 
         <!-- Modal เพิ่มผู้ใช้ -->
