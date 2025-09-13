@@ -46,14 +46,29 @@ if (isset($_GET['view']) || isset($_GET['edit'])) {
     }
 }
 
-// responses ของ user หรือทั้งหมด (admin)
+// --- Pagination setup ---
+$perPage = 10;
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$offset = ($page - 1) * $perPage;
 if ($is_admin) {
-    $responses = $pdo->query('SELECT * FROM responses WHERE status = "active" ORDER BY submitted_at ASC')->fetchAll();
+    $totalRows = $pdo->query('SELECT COUNT(*) FROM responses WHERE status = "active"')->fetchColumn();
+    $stmt = $pdo->prepare('SELECT * FROM responses WHERE status = "active" ORDER BY submitted_at ASC LIMIT :limit OFFSET :offset');
+    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $responses = $stmt->fetchAll();
 } else {
-    $responses = $pdo->prepare('SELECT * FROM responses WHERE user_id = ? AND status = "active" ORDER BY submitted_at ASC');
-    $responses->execute([$user_id]);
-    $responses = $responses->fetchAll();
+    $totalStmt = $pdo->prepare('SELECT COUNT(*) FROM responses WHERE user_id = ? AND status = "active"');
+    $totalStmt->execute([$user_id]);
+    $totalRows = $totalStmt->fetchColumn();
+    $stmt = $pdo->prepare('SELECT * FROM responses WHERE user_id = ? AND status = "active" ORDER BY submitted_at ASC LIMIT :limit OFFSET :offset');
+    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(2, $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(3, $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $responses = $stmt->fetchAll();
 }
+$totalPages = ceil($totalRows / $perPage);
 
 // ตรวจสอบว่ามี response ล่าสุดหรือไม่ (สำหรับฟอร์มใหม่/แก้ไข)
 if ($is_admin) {
@@ -186,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tbody>
                 <?php foreach ($responses as $i => $resp): ?>
                     <tr>
-                        <td><?= $i + 1 ?></td>
+                        <td><?= ($offset + $i + 1) ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q2'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q4'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($resp_answers[$resp['id']]['Q5'] ?? '-') ?></td>
@@ -202,6 +217,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <!-- Pagination menu -->
+        <?php if ($totalPages > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item<?= $page <= 1 ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>" tabindex="-1">ก่อนหน้า</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item<?= $i == $page ? ' active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item<?= $page >= $totalPages ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">ถัดไป</a>
+                    </li>
+                </ul>
+            </nav>
+        <?php endif; ?>
 
 
 
